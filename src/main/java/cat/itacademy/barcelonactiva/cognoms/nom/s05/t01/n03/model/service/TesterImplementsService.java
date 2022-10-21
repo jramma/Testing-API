@@ -34,4 +34,29 @@ public class TesterImplementsService implements FlorTesterService{
 		return new FlorTester(flor);
 	}
 
+	@Override
+	public FlorTester addTest(FlorTester florTest) {
+		Map <Flor, Integer> pathVariables = new HashMap<Flor, Integer>();
+		pathVariables.containsKey(florTest.getFlor());
+		Flor flor = clientRest.patchForObject("http://localhost:9001/flor/getOne/{id}", florTest, Flor.class, pathVariables);
+		return new FlorTester(flor);
+	}
+
+	@Override
+	public FlorTester updateTest(Integer id) {
+		Map <String, Integer> pathVariables = new HashMap<String, Integer>();
+		pathVariables.put("id", id);
+		Flor flor = clientRest.getForObject("http://localhost:9001/flor/getOne/{id}", Flor.class, pathVariables);
+		return new FlorTester(flor);
+	}
+
+	@Override
+	public void deleteTest(Integer id) {
+		Map <String, Integer> pathVariables = new HashMap<String, Integer>();
+		pathVariables.put("id", id);
+		clientRest.delete("http://localhost:9001/flor/getOne/{id}", Flor.class, pathVariables);
+	}
+
+	
+
 }
